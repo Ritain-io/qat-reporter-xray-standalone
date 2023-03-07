@@ -139,8 +139,8 @@ module QAT
 
           raise(ProjectKeyUndefinedError, 'JIRA\'s project key must be defined!') unless QAT::Reporter::Xray::Config.project_key
           raise(LoginCredentialsUndefinedError, 'JIRA\'s login credentials must be defined!') unless QAT::Reporter::Xray::Config.login_credentials
-          raise(PublisherUndefinedError, 'JIRA\'s login credentials must be defined!') unless publisher.blank?
-          return publisher
+          raise(PublisherUndefinedError, 'JIRA\'s login credentials must be defined!') unless QAT::Reporter::Xray::Config.publisher.blank?
+          return QAT::Reporter::Xray::Config.publisher
         end
 
         # Error returned when the the JIRA project key is not defined
