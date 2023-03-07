@@ -1,6 +1,5 @@
 #!/usr/bin/env rake
 # -*- encoding : utf-8 -*-
-require 'qat/devel/tasks'
 require 'erb'
 
 namespace :qat do

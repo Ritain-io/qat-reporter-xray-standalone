@@ -6,7 +6,6 @@ module QAT
     class Xray
       # QAT::Reporter::Xray::TestExecution represents a Xray Test Execution object
       class TestExecution < Issue
-        include QAT::Logger
 
         # Creates a Test Execution issue in Jira
         def create(options = {})

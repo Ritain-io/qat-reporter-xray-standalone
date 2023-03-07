@@ -10,8 +10,6 @@ module QAT
       module Publisher
         # QAT::Reporter::Xray::Publisher::Base integrator class
         class Base
-          include QAT::Logger
-
           attr_reader :base_url, :default_headers, :login_credentials, :default_cloud_api_url, :cloud_xray_api_credentials
 
           # Initializes Xray Publisher url and login information
@@ -88,7 +86,6 @@ module QAT
 
           # REST Base Client implementation
           class Client
-            include QAT::Logger
 
             # Service Unavailable Error class
             class ServiceUnavailableError < StandardError

@@ -32,7 +32,6 @@ namespace :qat do
             task.fork          = false
             task.cucumber_opts = ['--no-profile',
                                   '--dry-run',
-                                  '--format', 'QAT::Formatter::Xray::TestIds',
                                   '--out', 'public/xray_test_ids.json']
           end.runner.run
         end
