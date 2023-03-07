@@ -12,7 +12,7 @@ module QAT
           data     = defaults.merge(options)
           response = super(data)
           test_key = JSON.parse(response)['key']
-          log.info "Created test with key: '#{test_key}'."
+          puts "Created test with key: '#{test_key}'."
         end
 
         private

@@ -7,16 +7,11 @@ module QAT
       module Config
         class << self
 
-          attr_accessor :project_key, :test_prefix, :story_prefix, :jira_url, :xray_default_api_url, :login_credentials, :publisher, :jira_type,
+          attr_accessor :project_key, :jira_url, :xray_default_api_url, :login_credentials, :publisher, :jira_type,
                         :cloud_xray_api_credentials, :xray_test_environment, :xray_test_version, :xray_test_revision, :xray_export_test_keys, :xray_export_test_filter
 
           # Default xray API url (Jira Cloud)
-          DEFAULT_XRAY_URL = 'https://xray.cloud.xpand-it.com'
-
-          # Default test tag prefix
-          DEFAULT_TEST_PREFIX = 'TEST_'
-          # Default story tag prefix
-          DEFAULT_STORY_PREFIX = 'STORY_'
+          DEFAULT_XRAY_URL = 'https://xray.cloud.getxray.app'
 
           # Returns the xray instanced type (hosted or cloud)
           def jira_type
@@ -56,16 +51,6 @@ module QAT
           # Returns the project key value
           def project_key
             @project_key
-          end
-
-          # Returns the test tag prefix value
-          def test_prefix
-            @test_prefix || DEFAULT_TEST_PREFIX
-          end
-
-          # Returns the story tag prefix value
-          def story_prefix
-            @story_prefix || DEFAULT_STORY_PREFIX
           end
 
           # Returns the xray test environment value

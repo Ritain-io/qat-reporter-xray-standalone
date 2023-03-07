@@ -12,13 +12,13 @@ module QAT
           data               = test_execution_defaults.merge(options)
           response           = super(data)
           test_execution_key = JSON.parse(response)['key']
-          log.info "Created test execution with key: '#{test_execution_key}', saving in 'XRAY_TEST_EXECUTION' env variable."
+          puts "Created test execution with key: '#{test_execution_key}', saving in 'XRAY_TEST_EXECUTION' env variable."
           ENV['XRAY_TEST_EXECUTION'] = test_execution_key
         end
 
         # Posts the execution json results in Xray
         def import_execution_results(execution_results, info = {})
-          log.debug execution_results
+          puts execution_results
           if jira_id
             issue_info                    = info.merge(default_update_headers(execution_results))
             issue_info[:testExecutionKey] = jira_id
