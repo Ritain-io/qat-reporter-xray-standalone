@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-reporter-xray-standalone'
-  gem.version     = '1.0.4'
+  gem.version     = '1.0.5'
   gem.summary     = %q{Utility for Test Reports in Jira Xray.}
   gem.description = <<-DESC
   QAT Report Xray Standalone belongs to QAT Report collection but stand alone version, so no dependencies from other
