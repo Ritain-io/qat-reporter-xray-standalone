@@ -121,8 +121,7 @@ module QAT
           yield Config
 
           QAT::Reporter::Xray::Config.publisher = QAT::Reporter::Xray::Publisher.const_get(QAT::Reporter::Xray::Config.jira_type.capitalize).new
-
-          raise(ProjectKeyUndefinedError, 'JIRA\'s project key must be defined!') unless QAT::Reporter::Xray::Config.project_key
+          
           raise(LoginCredentialsUndefinedError, 'JIRA\'s login credentials must be defined!') unless QAT::Reporter::Xray::Config.login_credentials
           raise(PublisherUndefinedError, 'XRAY\'s publisher is not defined!') unless QAT::Reporter::Xray::Config.publisher.present?
           return QAT::Reporter::Xray::Config.publisher
