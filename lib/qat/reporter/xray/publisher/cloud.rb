@@ -8,6 +8,16 @@ module QAT
 				# QAT::Reporter::Xray::Publisher::Cloud integrator class
 				class Cloud < Base
 					
+					def get_jira_issue(issue_key)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).get("/rest/api/3/issue/#{issue_key}", headers)
+					end
+					
+					def get_jira_linked_issue(linked_issue_id)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).get("/rest/api/3/issueLink/#{linked_issue_id}", headers)
+					end
+					
 					# Posts the execution json results in Xray
 					def send_execution_results(results)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_token)
@@ -65,12 +75,9 @@ module QAT
 						puts "Exporting features from: #{default_cloud_api_url}/api/v1/export/cucumber"
 						all_tests = RestClient.get("#{default_cloud_api_url}/api/v1/export/cucumber", headers)
 						raise(NoTestsFoundError, "No Tests found for keys: #{keys}") if all_tests.code != 200
-						all_test_keys  = all_tests.body.to_s.scan(/(@TEST_\w+-\d+)/).flatten
-						all_test_names = all_tests.body.to_s.scan(/(?<=\Scenario:)(.*?)(?=\n)/).flatten.reject { |x| x.match(/\r/) }
-						all_paths      = all_tests.body.to_s.scan(/Path: \w+/).flatten
+						all_test_keys = all_tests.body.to_s.scan(/(@TEST_\w+-\d+)/).flatten
 						(0...all_test_keys.count).to_a.map do |index|
-							next if all_paths[index].blank?
-							{ test_id: all_test_keys[index].gsub('@TEST_', ''), test_name: all_test_names[index].strip, test_path: all_paths[index].gsub('Path: ', '') }
+							{ test_issue_key: all_test_keys[index].gsub('@TEST_', '') }
 						end
 					end
 				end
