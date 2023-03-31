@@ -18,6 +18,11 @@ module QAT
 						Client.new(base_url).get("/rest/api/3/issueLink/#{linked_issue_id}", headers)
 					end
 					
+					def get_project(project_key)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).get("/rest/api/3/project/#{project_key}", headers)
+					end
+					
 					# Posts the execution json results in Xray
 					def send_execution_results(results)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_token)
@@ -40,6 +45,16 @@ module QAT
 						@auth_token = {
 							Authorization: "Bearer #{bearer}"
 						}
+					end
+					
+					def import_cucumber_behave_tests(info, results)
+						headers = { 'Content-Type': 'multipart/form-data' }.merge(auth_token)
+						payload = {
+							info:    File.new(info, 'rb'),
+							results: File.new(results, 'rb')
+						}
+						
+						Client.new(default_cloud_api_url).post('/api/v2/import/execution/behave/multipart', payload, headers)
 					end
 					
 					# Import Cucumber features files as a zip file via API
