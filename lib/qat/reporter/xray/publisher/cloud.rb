@@ -13,6 +13,11 @@ module QAT
 						Client.new(base_url).get("/rest/api/3/issue/#{issue_key}", headers)
 					end
 					
+					def update_jira_issue(issue_key, payload)
+						headers = { 'Content-Type': 'application/json', 'Accept': "application/json" }.merge(auth_headers)
+						Client.new(base_url).put("/rest/api/2/issue/#{issue_key}", payload, headers)
+					end
+					
 					def get_jira_linked_issue(linked_issue_id)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
 						Client.new(base_url).get("/rest/api/3/issueLink/#{linked_issue_id}", headers)
