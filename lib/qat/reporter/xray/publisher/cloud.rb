@@ -23,6 +23,18 @@ module QAT
 						Client.new(base_url).get("/rest/api/3/project/#{project_key}", headers)
 					end
 					
+					# Get workflow transitions of an issue
+					def get_transitions(issue_key)
+						headers = { 'Content-Type': 'application/json', 'Accept': "application/json" }.merge(auth_headers)
+						Client.new(base_url).get("/rest/api/2/issue/#{issue_key}/transitions", headers)
+					end
+					
+					# Change transition issue
+					def transitions_issue(issue_key, payload)
+						headers = { 'Content-Type': 'application/json', 'Accept': "application/json" }.merge(auth_headers)
+						Client.new(base_url).post("/rest/api/2/issue/#{issue_key}/transitions", payload, headers)
+					end
+					
 					# Posts the execution json results in Xray
 					def send_execution_results(results)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_token)
