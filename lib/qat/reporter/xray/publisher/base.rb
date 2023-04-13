@@ -94,18 +94,19 @@ module QAT
 							define_method operation do |url, *args|
 								final_url = base_uri + url
 								
-								log_request operation, final_url, args
-								begin
-									response = RestClient.method(operation).call(final_url, *args)
-									log_response response
-									validate response
-								rescue RestClient::ExceptionWithResponse => e
-									puts e.response
-									raise NoConnectionFound.new ('Jira was not found!!!')
-								rescue => exception
-									puts "#{exception.class} #{exception.message.to_s}"
-									raise NoConnectionFound.new ('Jira was not found!!!')
-								end
+								# log_request operation, final_url, args
+								# begin
+								response = RestClient.method(operation).call(final_url, *args)
+								log_response response
+								response
+								# 	validate response
+								# rescue RestClient::ExceptionWithResponse => e
+								# 	puts e.response
+								# 	raise NoConnectionFound.new ('Jira was not found!!!')
+								# rescue => exception
+								# 	puts "#{exception.class} #{exception.message.to_s}"
+								# 	raise NoConnectionFound.new ('Jira was not found!!!')
+								# end
 							end
 						end
 						
