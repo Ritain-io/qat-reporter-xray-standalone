@@ -14,8 +14,8 @@ module QAT
 					end
 					
 					def update_jira_issue(issue_key, payload)
-						headers = { 'Content-Type': 'application/json', 'Accept': "application/json" }.merge(auth_headers)
-						Client.new(base_url).put("/rest/api/2/issue/#{issue_key}", payload, headers)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).put("/rest/api/2/issue/#{issue_key}", payload.to_json, headers)
 					end
 					
 					def get_jira_linked_issue(linked_issue_id)
@@ -30,14 +30,14 @@ module QAT
 					
 					# Get workflow transitions of an issue
 					def get_transitions(issue_key)
-						headers = { 'Content-Type': 'application/json', 'Accept': "application/json" }.merge(auth_headers)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
 						Client.new(base_url).get("/rest/api/2/issue/#{issue_key}/transitions", headers)
 					end
 					
 					# Change transition issue
 					def transitions_issue(issue_key, payload)
-						headers = { 'Content-Type': 'application/json', 'Accept': "application/json" }.merge(auth_headers)
-						Client.new(base_url).post("/rest/api/2/issue/#{issue_key}/transitions", payload, headers)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).post("/rest/api/2/issue/#{issue_key}/transitions", payload.to_json, headers)
 					end
 					
 					# Posts the execution json results in Xray
