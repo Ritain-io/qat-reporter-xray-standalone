@@ -2,8 +2,8 @@
 # require File.expand_path(File.join(File.dirname(__FILE__), 'lib', 'qat', 'version.rb'))
 
 Gem::Specification.new do |gem|
-  gem.name        = 'qat-reporter-xray-standalone'
-  gem.version     = '1.1.5'
+  gem.name        = 'qat-reporter-xray-sa'
+  gem.version     = '1.0.0'
   gem.summary     = %q{Utility for Test Reports in Jira Xray.}
   gem.description = <<-DESC
   QAT Report Xray Standalone belongs to QAT Report collection but stand alone version, so no dependencies from other
@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   extra_files = %w[LICENSE]
   gem.files   = Dir.glob('{lib}/**/*') + extra_files
 
-  gem.required_ruby_version = '~> 3.1'
+  gem.required_ruby_version = '~> 3.2'
 
   # Development dependencies
   gem.add_development_dependency 'vcr', '~> 5.0', '>= 5.0.0'

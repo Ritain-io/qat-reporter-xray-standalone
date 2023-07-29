@@ -2,7 +2,7 @@
 
 # QAT::Reporter::Xray
 
-- Welcome to the QAT Reporter Xray Gem!
+- Welcome to the QAT Reporter Xray StandAlone Gem!
   Before using this Gem it is necessary to have a Jira Xray repository Server or Cloud, configurated with:
     - Project with test issue types;
     - Project environment;
@@ -24,7 +24,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'qat-reporter-xray-standalone'
+gem 'qat-reporter-xray-sa'
 ```
 
 And then execute:
@@ -33,7 +33,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install qat-reporter-xray-standalone
+    $ gem install qat-reporter-xray-sa
 
 # Usage
 ## Import project features into jira xray:
