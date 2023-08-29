@@ -8,6 +8,10 @@ module QAT
 				# QAT::Reporter::Xray::Publisher::Cloud integrator class
 				class Cloud < Base
 					
+					def get_test_execution_graphql(issue)
+						Graphql.get_test_execution(issue, auth_headers, default_cloud_api_url_graphql)
+					end
+					
 					def get_jira_issue(issue_key)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
 						Client.new(base_url).get("/rest/api/3/issue/#{issue_key}", headers)

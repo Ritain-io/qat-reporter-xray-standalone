@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |gem|
   gem.name        = 'qat-reporter-xray-sa'
-  gem.version     = '1.0.0'
+  gem.version     = '1.1.0'
   gem.summary     = %q{Utility for Test Reports in Jira Xray.}
   gem.description = <<-DESC
   QAT Report Xray Standalone belongs to QAT Report collection but stand alone version, so no dependencies from other
@@ -30,5 +30,6 @@ Gem::Specification.new do |gem|
   # GEM dependencies
   gem.add_dependency 'rest-client'
   gem.add_dependency 'rubyzip'
+  gem.add_dependency 'graphql-client'
 
 end
