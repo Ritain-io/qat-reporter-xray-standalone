@@ -10,13 +10,12 @@ module QAT
 			module Publisher
 				# QAT::Reporter::Xray::Publisher::Base integrator class
 				class Base
-					attr_reader :base_url, :default_headers, :login_credentials, :default_cloud_api_url, :default_cloud_api_url_graphql, :cloud_xray_api_credentials
+					attr_reader :base_url, :default_headers, :login_credentials, :default_cloud_api_url, :cloud_xray_api_credentials
 					
 					# Initializes Xray Publisher url and login information
 					def initialize
 						@base_url                      = QAT::Reporter::Xray::Config.jira_url
 						@login_credentials             = QAT::Reporter::Xray::Config.login_credentials
-						@default_cloud_api_url         = QAT::Reporter::Xray::Config.xray_default_api_url
 						@default_cloud_api_url_graphql = QAT::Reporter::Xray::Config.xray_default_api_url_graphql
 						@cloud_xray_api_credentials    = QAT::Reporter::Xray::Config.cloud_xray_api_credentials
 					end
@@ -36,6 +35,10 @@ module QAT
 						{
 							'Content-Type': 'application/json'
 						}.merge(headers)
+					end
+					
+					def cloud_graphql_headers
+						auth_headers
 					end
 					
 					private

@@ -7,12 +7,11 @@ module QAT
 			module Config
 				class << self
 					
-					attr_accessor :project_key, :jira_url, :xray_default_api_url, :xray_default_api_url_graphql, :login_credentials, :publisher, :jira_type,
+					attr_accessor :project_key, :jira_url, :xray_default_api_url, :login_credentials, :publisher, :jira_type,
 												:cloud_xray_api_credentials, :xray_test_environment, :xray_test_version, :xray_test_revision, :xray_export_test_keys, :xray_export_test_filter
 					
 					# Default xray API url (Jira Cloud)
 					DEFAULT_XRAY_URL     = 'https://xray.cloud.getxray.app'
-					DEFAULT_XRAY_GRAPHQL = 'https://xray.cloud.getxray.app/api/v2/graphql'
 					
 					# Returns the xray instanced type (hosted or cloud)
 					def jira_type
@@ -27,11 +26,6 @@ module QAT
 					# Returns the default xray jira url for cloud api
 					def xray_default_api_url
 						DEFAULT_XRAY_URL
-					end
-					
-					# Returns the default xray jira url for cloud api graphql
-					def xray_default_api_url_graphql
-						DEFAULT_XRAY_GRAPHQL
 					end
 					
 					# Returns the login credentials array could -> [username, password, apiToken]
