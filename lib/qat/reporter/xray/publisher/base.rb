@@ -16,7 +16,6 @@ module QAT
 					def initialize
 						@base_url                      = QAT::Reporter::Xray::Config.jira_url
 						@login_credentials             = QAT::Reporter::Xray::Config.login_credentials
-						@default_cloud_api_url_graphql = QAT::Reporter::Xray::Config.xray_default_api_url_graphql
 						@cloud_xray_api_credentials    = QAT::Reporter::Xray::Config.cloud_xray_api_credentials
 					end
 					
