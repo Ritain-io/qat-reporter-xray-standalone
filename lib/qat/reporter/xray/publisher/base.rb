@@ -14,9 +14,10 @@ module QAT
 					
 					# Initializes Xray Publisher url and login information
 					def initialize
-						@base_url                      = QAT::Reporter::Xray::Config.jira_url
-						@login_credentials             = QAT::Reporter::Xray::Config.login_credentials
-						@cloud_xray_api_credentials    = QAT::Reporter::Xray::Config.cloud_xray_api_credentials
+						@base_url                   = QAT::Reporter::Xray::Config.jira_url
+						@login_credentials          = QAT::Reporter::Xray::Config.login_credentials
+						@cloud_xray_api_credentials = QAT::Reporter::Xray::Config.cloud_xray_api_credentials
+						@default_cloud_api_url      = QAT::Reporter::Xray::Config.xray_default_api_url
 					end
 					
 					# Creates a Jira issue
@@ -100,7 +101,7 @@ module QAT
 								# log_request operation, final_url, args
 								# begin
 								RestClient.method(operation).call(final_url, *args)
-								#log_response response
+								# log_response response
 								# 	validate response
 								# rescue RestClient::ExceptionWithResponse => e
 								# 	puts e.response
