@@ -7,6 +7,11 @@ module QAT
 			module Publisher
 				# QAT::Reporter::Xray::Publisher::Cloud integrator class
 				class Cloud < Base
+					def get_confluence_page(page_id)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).get("/wiki/rest/api/content/#{page_id}?expand=body.view", headers)
+					end
+					
 					def get_jira_issue(issue_key)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
 						Client.new(base_url).get("/rest/api/3/issue/#{issue_key}", headers)
@@ -37,6 +42,11 @@ module QAT
 					def transitions_issue(issue_key, payload)
 						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
 						Client.new(base_url).post("/rest/api/2/issue/#{issue_key}/transitions", payload.to_json, headers)
+					end
+					
+					def get_remote_issue_links(issue_key)
+						headers = { 'Content-Type': 'application/json' }.merge(auth_headers)
+						Client.new(base_url).get("/rest/api/3/issue/#{issue_key}/remotelink", headers)
 					end
 					
 					# Posts the execution json results in Xray

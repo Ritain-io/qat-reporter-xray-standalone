@@ -20,6 +20,7 @@ module QAT
 						@default_cloud_api_url      = QAT::Reporter::Xray::Config.xray_default_api_url
 					end
 					
+					
 					# Creates a Jira issue
 					def create_issue(data)
 						Client.new(base_url).post('/rest/api/2/issue', data.to_json, default_headers)
