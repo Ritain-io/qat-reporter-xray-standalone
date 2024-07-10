@@ -15,6 +15,14 @@ module QAT
 						Client.new(base_url).post('/rest/raven/1.0/import/execution', results.to_json, default_headers)
 					end
 					
+					def get_issue_links(issue_key)
+						Client.new(base_url).get("/jira/rest/api/2/issue/#{issue_key}/remotelink", default_headers)
+					end
+					
+					def get_confluence_page(page_id)
+						Client.new(base_url).get("confluence/rest/api/content/#{page_id}", default_headers)
+					end
+					
 					# Import Cucumber features files as a zip file via API
 					# @param project_key [String] JIRA's project key
 					# @param file_path [String]  Cucumber features files' zip file

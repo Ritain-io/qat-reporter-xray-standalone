@@ -20,19 +20,18 @@ module QAT
 						@default_cloud_api_url      = QAT::Reporter::Xray::Config.xray_default_api_url
 					end
 					
-					
-					# Creates a Jira issue
-					def create_issue(data)
-						Client.new(base_url).post('/rest/api/2/issue', data.to_json, default_headers)
-					end
-					
 					# Get the default headers for Xray ('password' in Xray API is password)
 					def default_headers
-						headers = if QAT::Reporter::Xray::Config.jira_type == 'cloud'
-												auth_headers_jira_cloud
-											else
-												auth_headers
-											end
+						headers = if QAT::Reporter::Xray::Config.auth_type == 'bearer'
+							          return 1
+						          elsif QAT::Reporter::Xray::Config.auth_type == 'basic'
+							          if QAT::Reporter::Xray::Config.jira_type == 'cloud'
+								          auth_headers_jira_cloud
+							          else
+								          auth_headers
+							          end
+						          end
+						
 						{
 							'Content-Type': 'application/json'
 						}.merge(headers)
@@ -84,15 +83,15 @@ module QAT
 						def initialize(base_uri)
 							# sets the ip:port/base_route
 							@base_uri = case base_uri
-														when Hash
-															URI::HTTP.build(base_uri).to_s
-														when URI::HTTP
-															base_uri.to_s
-														when String
-															base_uri
-														else
-															raise ArgumentError.new "Invalid URI class: #{base_uri.class}"
-													end
+								            when Hash
+									            URI::HTTP.build(base_uri).to_s
+								            when URI::HTTP
+									            base_uri.to_s
+								            when String
+									            base_uri
+								            else
+									            raise ArgumentError.new "Invalid URI class: #{base_uri.class}"
+							            end
 						end
 						
 						[:put, :post, :get, :delete, :patch].each do |operation|
@@ -120,27 +119,27 @@ module QAT
 						#@param response [RestClient::Response] response
 						def validate(response)
 							error_klass = case response.code
-															when 400 then
-																Error::BadRequest
-															when 401 then
-																Error::Unauthorized
-															when 403 then
-																Error::Forbidden
-															when 404 then
-																Error::NotFound
-															when 405 then
-																Error::MethodNotAllowed
-															when 409 then
-																Error::Conflict
-															when 422 then
-																Error::Unprocessable
-															when 500 then
-																Error::InternalServerError
-															when 502 then
-																Error::BadGateway
-															when 503 then
-																Error::ServiceUnavailable
-														end
+								              when 400 then
+									              Error::BadRequest
+								              when 401 then
+									              Error::Unauthorized
+								              when 403 then
+									              Error::Forbidden
+								              when 404 then
+									              Error::NotFound
+								              when 405 then
+									              Error::MethodNotAllowed
+								              when 409 then
+									              Error::Conflict
+								              when 422 then
+									              Error::Unprocessable
+								              when 500 then
+									              Error::InternalServerError
+								              when 502 then
+									              Error::BadGateway
+								              when 503 then
+									              Error::ServiceUnavailable
+							              end
 							
 							raise error_klass.new response if error_klass
 							response
@@ -165,28 +164,28 @@ module QAT
 							puts "Response HTTP #{response.code} (#{response.body})"
 							
 							log_http_options({ headers: response.headers.to_h,
-																 body:    response.body }.select { |_, value| !value.nil? })
+							                   body:    response.body }.select { |_, value| !value.nil? })
 						end
 						
 						# Logs the request's HTTP options
 						#@param options [Hash|String] http options to log
 						def log_http_options(options)
 							temp = if options.is_a?(String)
-											 { payload: JSON.parse(options) }
-										 else
-											 options.map do |k, v|
-												 if k == :body
-													 begin
-														 [k, JSON.pretty_generate(JSON.parse(v))]
-														 # if body is not JSON by some unknown reason, we still want to print
-													 rescue JSON::ParserError
-														 [k, v]
-													 end
-												 else
-													 [k, v]
-												 end
-											 end.to_h
-										 end
+								       { payload: JSON.parse(options) }
+								     else
+									     options.map do |k, v|
+										     if k == :body
+											     begin
+												     [k, JSON.pretty_generate(JSON.parse(v))]
+												     # if body is not JSON by some unknown reason, we still want to print
+											     rescue JSON::ParserError
+												     [k, v]
+											     end
+										     else
+											     [k, v]
+										     end
+									     end.to_h
+							       end
 							
 							temp.each do |key, value|
 								puts "#{key.to_s.humanize}:"

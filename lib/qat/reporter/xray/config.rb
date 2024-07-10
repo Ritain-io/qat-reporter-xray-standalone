@@ -8,7 +8,8 @@ module QAT
 				class << self
 					
 					attr_accessor :project_key, :jira_url, :xray_default_api_url, :login_credentials, :publisher, :jira_type,
-												:cloud_xray_api_credentials, :xray_test_environment, :xray_test_version, :xray_test_revision, :xray_export_test_keys, :xray_export_test_filter
+												:cloud_xray_api_credentials, :xray_test_environment, :xray_test_version, :xray_test_revision, :xray_export_test_keys, :xray_export_test_filter,
+					              :auth_type
 					
 					# Default xray API url (Jira Cloud)
 					DEFAULT_XRAY_URL     = 'https://xray.cloud.getxray.app'
@@ -21,6 +22,11 @@ module QAT
 					# Returns the jira url
 					def jira_url
 						@jira_url
+					end
+					
+					# Returns tha authentication type to be used for jira cloud/data center/server
+					def auth_type
+						@auth_type || nil
 					end
 					
 					# Returns the default xray jira url for cloud api
@@ -125,6 +131,8 @@ module QAT
 					
 					raise(LoginCredentialsUndefinedError, 'JIRA\'s login credentials must be defined!') unless QAT::Reporter::Xray::Config.login_credentials
 					raise(PublisherUndefinedError, 'XRAY\'s publisher is not defined!') unless QAT::Reporter::Xray::Config.publisher.present?
+					raise(LoginCredentialsUndefinedError, 'No valid Authentication type') unless QAT::Reporter::Xray::Config.auth_type.present?
+					raise(LoginCredentialsUndefinedError, 'Possible valid authentication types: bearer | basic . Authentication passed not recognized.') unless QAT::Reporter::Xray::Config.auth_type == 'bearer' || QAT::Reporter::Xray::Config.auth_type == 'basic'
 					return QAT::Reporter::Xray::Config.publisher
 				end
 				
