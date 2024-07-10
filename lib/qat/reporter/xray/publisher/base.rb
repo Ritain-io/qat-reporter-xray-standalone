@@ -23,13 +23,13 @@ module QAT
 					# Get the default headers for Xray ('password' in Xray API is password)
 					def default_headers
 						headers = if QAT::Reporter::Xray::Config.auth_type == 'bearer'
-							          return 1
-						          elsif QAT::Reporter::Xray::Config.auth_type == 'basic'
-							          if QAT::Reporter::Xray::Config.jira_type == 'cloud'
-								          auth_headers_jira_cloud
-							          else
-								          auth_headers
-							          end
+							          auth_token_headers
+							        elsif QAT::Reporter::Xray::Config.auth_type == 'basic'
+								        if QAT::Reporter::Xray::Config.jira_type == 'cloud'
+									        auth_headers_jira_cloud
+								        else
+									        auth_headers
+								        end
 						          end
 						
 						{
@@ -42,6 +42,13 @@ module QAT
 					end
 					
 					private
+					
+					# Authentication header for bearer token based apps
+					def auth_token_headers
+						{
+							Authorization: "Bearer #{login_credentials[2]}"
+						}
+					end
 					
 					# Authentication header for xray, Basic authentication done with: username, password
 					def auth_headers
